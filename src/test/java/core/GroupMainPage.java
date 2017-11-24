@@ -15,18 +15,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class GroupMainPage extends HelperBase {
 
     private static final By GROUP_CREATION = By.xpath(".//*[contains(@href,'st.layer.cmd=PopLayerCreateAltGroup')]");
-
     private static final By INTEREST_GROUP = By.xpath("//*[contains(@class,'create-group-dialog_img __interest')]");
-
     private static final By CREATE_GROUP = By.id("hook_FormButton_button_create");
-
     private static final By TYPE_NAME_FIELD = By.id("field_name");
-
     private static final By TYPE_DESCRIPTION_FIELD = By.id("field_description");
-
     private static final By GROUP_NAME = By.xpath("(.//*[contains(@class,'mctc_name_tx')])");
-
     private static final By GROUP_DESCRIPTION = By.xpath("(.//*[contains(@class,'group-info_desc')])");
+    private static final By GROUP_NAME_ERROR = By.xpath(".//*[contains(@class,'form_i__error')]//*[contains(@class,'input-e')]");
 
     public GroupMainPage(@NotNull final WebDriver driver) {
         super(driver);
@@ -87,5 +82,10 @@ public class GroupMainPage extends HelperBase {
     public void checkGroupDescription(@NotNull final String expectedDescription) {
         final String actualName = driver.findElement(GROUP_DESCRIPTION).getText();
         Assert.assertTrue("Не соответствует описание группы", expectedDescription.equals(actualName));
+    }
+
+    public void checkErrorOnGroupName() {
+        final String actualName = driver.findElement(GROUP_NAME_ERROR).getText();
+        Assert.assertTrue("Нет такой ошибки", actualName.equals("Укажите название"));
     }
 }

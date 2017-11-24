@@ -15,7 +15,7 @@ public class GroupCreationTest extends TestBase {
      * Создание группы с валидными значениями
      */
     @Test
-    public void testGroupCreation() throws Exception {
+    public void groupCreationTest() throws Exception {
         SessionHelper sessionHelper = new SessionHelper(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
@@ -36,5 +36,23 @@ public class GroupCreationTest extends TestBase {
 
         groupHelper.checkGroupName(groupName);
         groupHelper.checkGroupDescription(groupDescription);
+    }
+
+    @Test
+    public void groupCreationInvalidValuesTest() {
+        SessionHelper sessionHelper = new SessionHelper(driver);
+        sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
+
+        UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
+        UserMainPageHelper userMainPageHelper = userMainPageFactory.getUserMainPageHelper(driver);
+        userMainPageHelper.clickGroupsOnToolbar();
+
+        GroupMainPage groupHelper = new GroupMainPage(driver);
+
+        groupHelper.clickGroupCreation();
+        groupHelper.clickInterestGroup();
+        groupHelper.clickCreateGroup();
+
+        groupHelper.checkErrorOnGroupName();
     }
 }
