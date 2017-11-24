@@ -15,7 +15,7 @@ public class GroupCreationTest extends TestBase {
      * Создание группы с валидными значениями
      */
     @Test
-    public void groupCreationTest() throws Exception {
+    public void groupCreationWithValidValuesTest() throws Exception {
         SessionHelper sessionHelper = new SessionHelper(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
@@ -39,7 +39,7 @@ public class GroupCreationTest extends TestBase {
     }
 
     @Test
-    public void groupCreationInvalidValuesTest() {
+    public void groupCreationWithInvalidValuesTest() {
         SessionHelper sessionHelper = new SessionHelper(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 

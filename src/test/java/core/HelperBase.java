@@ -41,15 +41,15 @@ public abstract class HelperBase {
     }
 
     /**
-     * Метод для того, чтобы произвести клик на элемент
+     * Метод для того, чтобы вводить значения
      *
-     * @param groupName название группы
+     * @param text название группы
      * @param locator   элемент
      */
-    protected void type(@NotNull final String groupName,
+    protected void type(@NotNull final String text,
                         @NotNull final By locator) {
         driver.findElement(locator).clear();
-        driver.findElement(locator).sendKeys(groupName);
+        driver.findElement(locator).sendKeys(text);
     }
 
     /**

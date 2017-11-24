@@ -9,10 +9,10 @@ import org.junit.Test;
  *
  * @author olerom
  */
-public class GroupDeletionTest extends TestBase {
+public class PostCreationTest extends TestBase {
 
     @Test
-    public void deleteGroup() {
+    public void postCreationTest() {
         final SessionHelper sessionHelper = new SessionHelper(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
@@ -21,8 +21,9 @@ public class GroupDeletionTest extends TestBase {
         userMainPageHelper.clickGroupsOnToolbar();
 
         final GroupMainPage groupHelper = new GroupMainPage(driver);
-        groupHelper.openGroupById("53521811046534");
-        groupHelper.deleteGroup();
+        groupHelper.openGroupById("53521809211526");
+
+        groupHelper.createPost("NEW POST");
 
         try {
             Thread.sleep(10000);
@@ -30,4 +31,5 @@ public class GroupDeletionTest extends TestBase {
             e.printStackTrace();
         }
     }
+
 }
