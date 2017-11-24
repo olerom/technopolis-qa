@@ -1,6 +1,7 @@
 package model;
 
-import com.sun.istack.internal.NotNull;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Date: 23.11.17
@@ -14,7 +15,8 @@ public class TestBot {
     @NotNull
     private final String password;
 
-    public TestBot(String login, String password) {
+    public TestBot(@NotNull final String login,
+                   @NotNull final String password) {
         this.login = login;
         this.password = password;
     }

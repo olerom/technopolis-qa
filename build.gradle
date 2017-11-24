@@ -14,4 +14,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.6.0'
+
+    compile group: 'com.intellij', name: 'annotations', version: '12.0'
 }
