@@ -11,7 +11,7 @@ import org.openqa.selenium.*;
 public abstract class HelperBase {
     @NotNull
     protected final WebDriver driver;
-    protected static final int TIME_OUT_IN_SECONDS = 5;
+    protected static final int TIME_OUT_IN_SECONDS = 1;
 
     private boolean acceptNextAlert = true;
 
@@ -23,12 +23,21 @@ public abstract class HelperBase {
     protected abstract void check();
 
     /**
-     * Метод для того, чтобы произвести клик на элемент
+     * Метод для того, чтобы произвести клик на элемент.
+     * Производится скролл, чтобы элемент был в видимости.
      *
      * @param locator элемент
      */
     protected void click(@NotNull final By locator) {
-        driver.findElement(locator).click();
+        final WebElement element = driver.findElement(locator);
+        final int elementPosition = element.getLocation().getY();
+
+//        Because of header
+        final int defaultOffset = 100;
+
+        final String js = String.format("window.scroll(0, %s);", elementPosition - defaultOffset);
+        ((JavascriptExecutor) driver).executeScript(js);
+        element.click();
     }
 
     /**

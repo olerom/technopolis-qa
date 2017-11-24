@@ -24,9 +24,17 @@ public class GroupCreationTest extends TestBase {
         userMainPageHelper.clickGroupsOnToolbar();
 
         GroupMainPage groupHelper = new GroupMainPage(driver);
+
+        final String groupName = "Test Group";
+        final String groupDescription = "Test Group Description";
+
         groupHelper.clickGroupCreation();
         groupHelper.clickInterestGroup();
-        groupHelper.typeGroupName("Group");
+        groupHelper.typeGroupName(groupName);
+        groupHelper.typeGroupDescription(groupDescription);
         groupHelper.clickCreateGroup();
+
+        groupHelper.checkGroupName(groupName);
+        groupHelper.checkGroupDescription(groupDescription);
     }
 }

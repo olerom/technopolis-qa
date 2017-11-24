@@ -27,14 +27,10 @@ public class UserMainPageFactory {
      */
     @NotNull
     public UserMainPageHelper getUserMainPageHelper(@NotNull final WebDriver driver) {
-// TODO: fix factory
+// TODO: do smth w/ factory
         if (driver.findElements(NEW_DESIGN_LOCATOR).size() != 0) {
             return new UserMainPageHelper(driver, NEW_DESIGN_LOCATOR);
         } else {
-//            Scroll down to element
-            JavascriptExecutor jse = (JavascriptExecutor) driver;
-            jse.executeScript("window.scrollBy(0, 350)", "");
-
             return new UserMainPageHelper(driver, OLD_DESIGN_LOCATOR);
         }
     }

@@ -14,19 +14,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class GroupMainPage extends HelperBase {
 
-    @NotNull
-    private static final By GROUP_CREATION =
-            By.xpath(".//*[contains(@href,'st.layer.cmd=PopLayerCreateAltGroup')]");
+    private static final By GROUP_CREATION = By.xpath(".//*[contains(@href,'st.layer.cmd=PopLayerCreateAltGroup')]");
 
-    @NotNull
-    private static final By INTEREST_GROUP =
-            By.xpath("//*[contains(@class,'create-group-dialog_img __interest')]");
+    private static final By INTEREST_GROUP = By.xpath("//*[contains(@class,'create-group-dialog_img __interest')]");
 
-    @NotNull
-    private static final By CREATE_GROUP =
-            By.id("hook_FormButton_button_create");
+    private static final By CREATE_GROUP = By.id("hook_FormButton_button_create");
 
     private static final By TYPE_NAME_FIELD = By.id("field_name");
+
+    private static final By TYPE_DESCRIPTION_FIELD = By.id("field_description");
+
+    private static final By GROUP_NAME = By.xpath("(.//*[contains(@class,'mctc_name_tx')])");
+
+    private static final By GROUP_DESCRIPTION = By.xpath("(.//*[contains(@class,'group-info_desc')])");
 
     public GroupMainPage(@NotNull final WebDriver driver) {
         super(driver);
@@ -44,6 +44,15 @@ public class GroupMainPage extends HelperBase {
      */
     public void typeGroupName(@NotNull final String groupName) {
         type(groupName, TYPE_NAME_FIELD);
+    }
+
+    /**
+     * Ввод описания группы
+     *
+     * @param groupDescription описание группы
+     */
+    public void typeGroupDescription(@NotNull final String groupDescription) {
+        type(groupDescription, TYPE_DESCRIPTION_FIELD);
     }
 
     /**
@@ -69,4 +78,14 @@ public class GroupMainPage extends HelperBase {
         click(CREATE_GROUP);
     }
 
+    public void checkGroupName(@NotNull final String expectedName) {
+        final String actualName = driver.findElement(GROUP_NAME).getText();
+        Assert.assertTrue("Не соответствует название группы", expectedName.equals(actualName));
+    }
+
+
+    public void checkGroupDescription(@NotNull final String expectedDescription) {
+        final String actualName = driver.findElement(GROUP_DESCRIPTION).getText();
+        Assert.assertTrue("Не соответствует описание группы", expectedDescription.equals(actualName));
+    }
 }
