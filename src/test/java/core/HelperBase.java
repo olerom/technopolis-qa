@@ -11,7 +11,7 @@ import org.openqa.selenium.*;
 public abstract class HelperBase {
     @NotNull
     protected final WebDriver driver;
-    protected static final int TIME_OUT_IN_SECONDS = 10;
+    protected static final int TIME_OUT_IN_SECONDS = 5;
 
     private boolean acceptNextAlert = true;
 

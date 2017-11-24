@@ -14,22 +14,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class UserMainPageHelper extends HelperBase {
 
     @NotNull
-    private final By GROUPS_ON_TOOLBAR = By.xpath(".//*[@class='mctc_navMenuSec' and contains(@href,'groups')]");
+    private final By groupsOnToolbar;
 
-    public UserMainPageHelper(@NotNull final WebDriver driver) {
+    public UserMainPageHelper(@NotNull final WebDriver driver,
+                              @NotNull final By groupsOnToolbarLocator) {
         super(driver);
+        groupsOnToolbar = groupsOnToolbarLocator;
     }
 
     protected void check() {
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(GROUPS_ON_TOOLBAR));
+//        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
+//                .until(ExpectedConditions.visibilityOfElementLocated(groupsOnToolbar));
     }
 
     /**
      * Метод для того, чтобы перейти на страницу с группами.
      */
     public void clickGroupsOnToolbar() {
-        click(GROUPS_ON_TOOLBAR);
+        click(groupsOnToolbar);
     }
 
 }

@@ -26,14 +26,16 @@ public class TestBase {
     @NotNull
     protected final WebDriver driver = new ChromeDriver();
 
+    private final int WAIT_TIME_TIMEOUTS = 1;
+
     protected void init() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(WAIT_TIME_TIMEOUTS, TimeUnit.SECONDS);
         driver.get(baseUrl + "/");
     }
 
     public void stop() {
         driver.quit();
-        String verificationErrorString = verificationErrors.toString();
+        final String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }

@@ -26,6 +26,8 @@ public class GroupMainPage extends HelperBase {
     private static final By CREATE_GROUP =
             By.id("hook_FormButton_button_create");
 
+    private static final By TYPE_NAME_FIELD = By.id("field_name");
+
     public GroupMainPage(@NotNull final WebDriver driver) {
         super(driver);
     }
@@ -35,12 +37,20 @@ public class GroupMainPage extends HelperBase {
                 until(ExpectedConditions.visibilityOfElementLocated(GROUP_CREATION));
     }
 
+    /**
+     * Ввод названия группы
+     *
+     * @param groupName название группы
+     */
     public void typeGroupName(@NotNull final String groupName) {
-        type(groupName, By.id("field_name"));
+        type(groupName, TYPE_NAME_FIELD);
     }
 
+    /**
+     * Выбор группы с типом "Группа по интересам или для друзей"
+     */
     public void clickInterestGroup() {
-        Assert.assertTrue("Нет элемента создания группы", isElementPresent(CREATE_GROUP));
+        Assert.assertTrue("Нет элемента создания группы", isElementPresent(INTEREST_GROUP));
         click(INTEREST_GROUP);
     }
 
@@ -51,6 +61,9 @@ public class GroupMainPage extends HelperBase {
         click(GROUP_CREATION);
     }
 
+    /**
+     * Клик для окончания создания группы.
+     */
     public void clickCreateGroup() {
         Assert.assertTrue("Нет элемента создания группы", isElementPresent(CREATE_GROUP));
         click(CREATE_GROUP);

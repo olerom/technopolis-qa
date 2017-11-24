@@ -1,9 +1,6 @@
 package tests;
 
-import core.GroupMainPage;
-import core.SessionHelper;
-import core.TestBase;
-import core.UserMainPageHelper;
+import core.*;
 import model.TestBot;
 import org.junit.Test;
 
@@ -22,7 +19,8 @@ public class GroupCreationTest extends TestBase {
         SessionHelper sessionHelper = new SessionHelper(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
-        UserMainPageHelper userMainPageHelper = new UserMainPageHelper(driver);
+        UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
+        UserMainPageHelper userMainPageHelper = userMainPageFactory.getUserMainPageHelper(driver);
         userMainPageHelper.clickGroupsOnToolbar();
 
         GroupMainPage groupHelper = new GroupMainPage(driver);
