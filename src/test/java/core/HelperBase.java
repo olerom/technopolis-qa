@@ -1,37 +1,57 @@
 package core;
 
+import com.sun.istack.internal.NotNull;
 import org.openqa.selenium.*;
 
 /**
- * Date: 23.11.17
+ * Базовый класс хелпера
  *
  * @author olerom
  */
 public abstract class HelperBase {
-    protected WebDriver driver;
+    @NotNull
+    protected final WebDriver driver;
+    protected static final int TIME_OUT_IN_SECONDS = 10;
+
     private boolean acceptNextAlert = true;
 
-    public HelperBase(WebDriver driver) {
+    public HelperBase(@NotNull final WebDriver driver) {
         this.driver = driver;
         check();
     }
 
     protected abstract void check();
 
-    protected void click(By by) {
-        driver.findElement(by).click();
+    /**
+     * Метод для того, чтобы произвести клик на элемент
+     *
+     * @param locator элемент
+     */
+    protected void click(@NotNull final By locator) {
+        driver.findElement(locator).click();
     }
 
-
-    protected void type(String groupName, By locator) {
+    /**
+     * Метод для того, чтобы произвести клик на элемент
+     *
+     * @param groupName название группы
+     * @param locator   элемент
+     */
+    protected void type(@NotNull final String groupName,
+                        @NotNull final By locator) {
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(groupName);
     }
 
-
-    protected boolean isElementPresent(By by) {
+    /**
+     * Метод для проверки присутствия элемента на странице
+     *
+     * @param element элемент
+     * @return true, если элемент присутствует на странице
+     */
+    protected boolean isElementPresent(@NotNull final By element) {
         try {
-            driver.findElement(by);
+            driver.findElement(element);
             return true;
         } catch (NoSuchElementException e) {
             return false;
@@ -47,10 +67,11 @@ public abstract class HelperBase {
         }
     }
 
+    @NotNull
     private String closeAlertAndGetItsText() {
         try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
+            final Alert alert = driver.switchTo().alert();
+            final String alertText = alert.getText();
             if (acceptNextAlert) {
                 alert.accept();
             } else {

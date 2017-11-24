@@ -8,23 +8,27 @@ import model.TestBot;
 import org.junit.Test;
 
 /**
- * Date: 23.11.17
+ * Класс для тестирования создания группы
  *
  * @author olerom
  */
 public class GroupCreationTest extends TestBase {
+
+    /**
+     * Создание группы с валидными значениями
+     */
     @Test
     public void testGroupCreation() throws Exception {
         SessionHelper sessionHelper = new SessionHelper(driver);
-        sessionHelper.doLogin(new TestBot("technopolisBot13", "technopolis16"));
+        sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
         UserMainPageHelper userMainPageHelper = new UserMainPageHelper(driver);
         userMainPageHelper.clickGroupsOnToolbar();
 
         GroupMainPage groupHelper = new GroupMainPage(driver);
-        groupHelper.clickCreateGroup();
+        groupHelper.clickGroupCreation();
         groupHelper.clickInterestGroup();
         groupHelper.typeGroupName("Group");
-        groupHelper.clickCreateButton();
+        groupHelper.clickCreateGroup();
     }
 }

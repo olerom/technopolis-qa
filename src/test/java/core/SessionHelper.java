@@ -1,28 +1,49 @@
 package core;
 
+import com.sun.istack.internal.NotNull;
 import model.TestBot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Date: 23.11.17
+ * Хелпер для работы с сессией
  *
  * @author olerom
  */
 public class SessionHelper extends HelperBase {
 
-    public SessionHelper(WebDriver driver) {
+    @NotNull
+    private static final By EMAIL_FIELD = By.id("field_email");
+    @NotNull
+    private static final By PASSWORD_FIELD = By.id("field_password");
+    @NotNull
+    private static final By LOGIN_BUTTON = By.cssSelector("div.form-actions > div > input.button-pro");
+
+    public SessionHelper(@NotNull final WebDriver driver) {
         super(driver);
     }
 
+    @Override
     protected void check() {
-
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
+                .until(ExpectedConditions.visibilityOfElementLocated(EMAIL_FIELD));
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
+                .until(ExpectedConditions.visibilityOfElementLocated(PASSWORD_FIELD));
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
+                .until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
     }
 
-    public void doLogin(TestBot testBot) {
-        type(testBot.getLogin(), By.id("field_email"));
-        type(testBot.getPassword(), By.id("field_password"));
-        click(By.cssSelector("div.form-actions > div > input.button-pro"));
+    /**
+     * Метод для логина бота
+     *
+     * @param testBot бот, за которого осуществляется вход
+     */
+    public void doLogin(@NotNull final TestBot testBot) {
+        type(testBot.getLogin(), EMAIL_FIELD);
+        type(testBot.getPassword(), PASSWORD_FIELD);
+        click(LOGIN_BUTTON);
     }
 
 

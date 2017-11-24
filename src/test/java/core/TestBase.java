@@ -27,7 +27,7 @@ public class TestBase {
     protected final WebDriver driver = new ChromeDriver();
 
     protected void init() {
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(baseUrl + "/");
     }
 
