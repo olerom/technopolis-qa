@@ -1,5 +1,7 @@
 package core;
 
+import core.wrappers.GroupWrapper;
+import core.wrappers.PostWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -30,9 +32,10 @@ public class GroupMainPage extends HelperBase {
     private static final By ANOTHER_ACTIONS = By.xpath(".//*[contains(@data-active-class, 'u-menu_a__sub-open')]");
     private static final By DELETE_GROUP = By.xpath(".//*[contains(@hrefattrs, 'cmd=PopLayer&st.layer.cmd=PopLayerRemoveAltGroup')]");
     private static final By CONFIRM_DELETION = By.id("hook_FormButton_button_delete");
-    private static final By START_POST_CREATION = By.className("input_placeholder");
+    private static final By START_POST_CREATION = By.xpath(".//*[contains(@class, 'pf-with-ava_cnt')]");
     private static final By TYPE_POST_TEXT = By.id("posting_form_text_field");
     private static final By CONFIRM_POST_CREATION = By.xpath(".//*[contains(@class, 'form-actions')]//*[contains(@id, 'submit')]");
+    private static final By ALL_POSTS = By.xpath(".//*[contains(@class, 'textWrap')]");
 
     private static final String TO_GO_URL = "https://ok.ru/group/";
 
@@ -134,5 +137,23 @@ public class GroupMainPage extends HelperBase {
         click(START_POST_CREATION);
         type(postText, TYPE_POST_TEXT);
         click(CONFIRM_POST_CREATION);
+    }
+
+    @NotNull
+    private List<PostWrapper> getPostWrappers() {
+        final List<WebElement> elements = driver.findElements(ALL_POSTS);
+        final List<PostWrapper> postWrappers = new ArrayList<>(elements.size());
+
+        elements.forEach((e) -> postWrappers.add(new PostWrapper(e)));
+
+        return postWrappers;
+    }
+
+    public void checkPostText(@NotNull final String postText) {
+        final List<PostWrapper> posts = getPostWrappers();
+
+        Assert.assertEquals("Пост не был создан с соответсвующим текстом",
+                posts.get(0).getPostText(),
+                postText);
     }
 }

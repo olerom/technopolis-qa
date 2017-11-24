@@ -23,13 +23,10 @@ public class PostCreationTest extends TestBase {
         final GroupMainPage groupHelper = new GroupMainPage(driver);
         groupHelper.openGroupById("53521809211526");
 
-        groupHelper.createPost("NEW POST");
+        final String postText = "Lets test thisss!!!";
+        groupHelper.createPost(postText);
+        groupHelper.checkPostText(postText);
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 }
