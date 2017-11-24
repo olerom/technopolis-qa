@@ -1,5 +1,6 @@
-package core;
+package core.pages;
 
+import core.HelperBase;
 import model.TestBot;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
@@ -12,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author olerom
  */
-public class SessionHelper extends HelperBase {
+public class LoginPage extends HelperBase {
 
     @NotNull
     private static final By EMAIL_FIELD = By.id("field_email");
@@ -21,7 +22,7 @@ public class SessionHelper extends HelperBase {
     @NotNull
     private static final By LOGIN_BUTTON = By.cssSelector("div.form-actions > div > input.button-pro");
 
-    public SessionHelper(@NotNull final WebDriver driver) {
+    public LoginPage(@NotNull final WebDriver driver) {
         super(driver);
     }
 

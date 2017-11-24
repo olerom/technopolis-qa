@@ -1,8 +1,8 @@
-package core;
+package core.factories;
 
+import core.pages.UserMainPage;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -20,18 +20,18 @@ public class UserMainPageFactory {
 
     /**
      * Проверяется дизайн страницы (должна быть текущей).
-     * В зависимости от наличия элемента возвращается реализация {@link UserMainPageHelper}
+     * В зависимости от наличия элемента возвращается реализация {@link UserMainPage}
      *
      * @param driver драйвер
-     * @return {@link UserMainPageHelper} в зависимости от дизайна
+     * @return {@link UserMainPage} в зависимости от дизайна
      */
     @NotNull
-    public UserMainPageHelper getUserMainPageHelper(@NotNull final WebDriver driver) {
+    public UserMainPage getUserMainPageHelper(@NotNull final WebDriver driver) {
 // TODO: do smth w/ factory
         if (driver.findElements(NEW_DESIGN_LOCATOR).size() != 0) {
-            return new UserMainPageHelper(driver, NEW_DESIGN_LOCATOR);
+            return new UserMainPage(driver, NEW_DESIGN_LOCATOR);
         } else {
-            return new UserMainPageHelper(driver, OLD_DESIGN_LOCATOR);
+            return new UserMainPage(driver, OLD_DESIGN_LOCATOR);
         }
     }
 }

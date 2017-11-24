@@ -1,6 +1,10 @@
 package tests;
 
 import core.*;
+import core.factories.UserMainPageFactory;
+import core.pages.GroupMainPage;
+import core.pages.LoginPage;
+import core.pages.UserMainPage;
 import model.TestBot;
 import org.junit.Test;
 
@@ -16,12 +20,12 @@ public class GroupCreationTest extends TestBase {
      */
     @Test
     public void groupCreationWithValidValuesTest() throws Exception {
-        SessionHelper sessionHelper = new SessionHelper(driver);
+        LoginPage sessionHelper = new LoginPage(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
         UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
-        UserMainPageHelper userMainPageHelper = userMainPageFactory.getUserMainPageHelper(driver);
-        userMainPageHelper.clickGroupsOnToolbar();
+        UserMainPage userMainPage = userMainPageFactory.getUserMainPageHelper(driver);
+        userMainPage.clickGroupsOnToolbar();
 
         GroupMainPage groupHelper = new GroupMainPage(driver);
 
@@ -40,12 +44,12 @@ public class GroupCreationTest extends TestBase {
 
     @Test
     public void groupCreationWithInvalidValuesTest() {
-        SessionHelper sessionHelper = new SessionHelper(driver);
+        LoginPage sessionHelper = new LoginPage(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
         UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
-        UserMainPageHelper userMainPageHelper = userMainPageFactory.getUserMainPageHelper(driver);
-        userMainPageHelper.clickGroupsOnToolbar();
+        UserMainPage userMainPage = userMainPageFactory.getUserMainPageHelper(driver);
+        userMainPage.clickGroupsOnToolbar();
 
         GroupMainPage groupHelper = new GroupMainPage(driver);
 

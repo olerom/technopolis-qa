@@ -1,5 +1,6 @@
-package core;
+package core.pages;
 
+import core.HelperBase;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +12,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author olerom
  */
-public class UserMainPageHelper extends HelperBase {
+public class UserMainPage extends HelperBase {
 
     @NotNull
     private final By groupsOnToolbar;
 
-    public UserMainPageHelper(@NotNull final WebDriver driver,
-                              @NotNull final By groupsOnToolbarLocator) {
+    public UserMainPage(@NotNull final WebDriver driver,
+                        @NotNull final By groupsOnToolbarLocator) {
         super(driver);
         groupsOnToolbar = groupsOnToolbarLocator;
     }

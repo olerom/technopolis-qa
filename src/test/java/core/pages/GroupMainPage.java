@@ -1,5 +1,6 @@
-package core;
+package core.pages;
 
+import core.HelperBase;
 import core.wrappers.GroupWrapper;
 import core.wrappers.PostWrapper;
 import org.jetbrains.annotations.NotNull;
