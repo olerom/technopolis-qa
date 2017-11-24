@@ -1,6 +1,6 @@
 package tests;
 
-import core.*;
+import core.TestBase;
 import core.factories.UserMainPageFactory;
 import core.pages.GroupMainPage;
 import core.pages.LoginPage;
@@ -9,12 +9,15 @@ import model.TestBot;
 import org.junit.Test;
 
 /**
- * Date: 24.11.17
+ * Класс для тестирования удаления группы
  *
  * @author olerom
  */
 public class GroupDeletionTest extends TestBase {
 
+    /**
+     * Удаление группы c идентификатором <code>groupId</code>.
+     */
     @Test
     public void deleteGroup() {
         final LoginPage sessionHelper = new LoginPage(driver);
@@ -25,13 +28,9 @@ public class GroupDeletionTest extends TestBase {
         userMainPage.clickGroupsOnToolbar();
 
         final GroupMainPage groupHelper = new GroupMainPage(driver);
-        groupHelper.openGroupById("53521811046534");
-        groupHelper.deleteGroup();
+        final String groupId = "53521811046534";
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        groupHelper.openGroupById(groupId);
+        groupHelper.deleteGroup();
     }
 }

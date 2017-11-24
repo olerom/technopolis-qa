@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 
 /**
- * Date: 24.11.17
+ * Обертка для группы
  *
  * @author olerom
  */
@@ -17,11 +17,17 @@ public class GroupWrapper {
         this.element = element;
     }
 
+    /**
+     * @return href на группу
+     */
     @NotNull
     public String getGroupHref() {
         return element.getAttribute("href");
     }
 
+    /**
+     * Кликнуть для перехода в группу
+     */
     public void click() {
         element.click();
     }

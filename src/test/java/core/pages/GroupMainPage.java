@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс-помощник для работы со страницей с группами
+ * Работы со страницей с группами
  *
  * @author olerom
  */
@@ -90,17 +90,27 @@ public class GroupMainPage extends HelperBase {
         click(CREATE_GROUP);
     }
 
+    /**
+     * Проверка соответствия названия группы
+     * @param expectedName ожидаемое название группы
+     */
     public void checkGroupName(@NotNull final String expectedName) {
         final String actualName = driver.findElement(GROUP_NAME).getText();
         Assert.assertTrue("Не соответствует название группы", expectedName.equals(actualName));
     }
 
-
+    /**
+     * Проверка соответствия описания группы
+     * @param expectedDescription ожидаемое описание группы
+     */
     public void checkGroupDescription(@NotNull final String expectedDescription) {
         final String actualName = driver.findElement(GROUP_DESCRIPTION).getText();
         Assert.assertTrue("Не соответствует описание группы", expectedDescription.equals(actualName));
     }
 
+    /**
+     * Проверка, что появилась ошибка о не введенном названии группы
+     */
     public void checkErrorOnGroupName() {
         final String actualName = driver.findElement(GROUP_NAME_ERROR).getText();
         Assert.assertTrue("Нет такой ошибки", actualName.equals("Укажите название"));
@@ -116,6 +126,10 @@ public class GroupMainPage extends HelperBase {
         return groupWrappers;
     }
 
+    /**
+     * Открыть группу по ее id
+     * @param groupId id группы
+     */
     public void openGroupById(@NotNull final String groupId) {
         final List<GroupWrapper> groups = getGroupWrappers();
 
@@ -128,12 +142,19 @@ public class GroupMainPage extends HelperBase {
 
     }
 
+    /**
+     * Удалить группу
+     */
     public void deleteGroup() {
         click(ANOTHER_ACTIONS);
         click(DELETE_GROUP);
         click(CONFIRM_DELETION);
     }
 
+    /**
+     * Создать пост
+     * @param postText текст поста
+     */
     public void createPost(@NotNull final String postText) {
         click(START_POST_CREATION);
         type(postText, TYPE_POST_TEXT);
@@ -150,11 +171,15 @@ public class GroupMainPage extends HelperBase {
         return postWrappers;
     }
 
-    public void checkPostText(@NotNull final String postText) {
+    /**
+     * Проверка последнего поста в группе на соответствие содержимого текста
+     * @param expectedText ожидаемый текст
+     */
+    public void checkPostText(@NotNull final String expectedText) {
         final List<PostWrapper> posts = getPostWrappers();
 
         Assert.assertEquals("Пост не был создан с соответсвующим текстом",
                 posts.get(0).getPostText(),
-                postText);
+                expectedText);
     }
 }

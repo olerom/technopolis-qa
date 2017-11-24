@@ -27,7 +27,10 @@ public class UserMainPageFactory {
      */
     @NotNull
     public UserMainPage getUserMainPageHelper(@NotNull final WebDriver driver) {
-// TODO: do smth w/ factory
+
+//        По сути, это совсем не фабрика.
+//        Но дизайны будут отличаться только в одном локаторе.
+//        Для нового и старого соответственно.
         if (driver.findElements(NEW_DESIGN_LOCATOR).size() != 0) {
             return new UserMainPage(driver, NEW_DESIGN_LOCATOR);
         } else {

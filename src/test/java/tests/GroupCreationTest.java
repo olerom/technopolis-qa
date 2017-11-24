@@ -1,6 +1,6 @@
 package tests;
 
-import core.*;
+import core.TestBase;
 import core.factories.UserMainPageFactory;
 import core.pages.GroupMainPage;
 import core.pages.LoginPage;
@@ -42,6 +42,9 @@ public class GroupCreationTest extends TestBase {
         groupHelper.checkGroupDescription(groupDescription);
     }
 
+    /**
+     * Создание группы с невалидными значениями
+     */
     @Test
     public void groupCreationWithInvalidValuesTest() {
         LoginPage sessionHelper = new LoginPage(driver);

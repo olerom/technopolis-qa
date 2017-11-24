@@ -1,6 +1,6 @@
 package tests;
 
-import core.*;
+import core.TestBase;
 import core.factories.UserMainPageFactory;
 import core.pages.GroupMainPage;
 import core.pages.LoginPage;
@@ -9,12 +9,16 @@ import model.TestBot;
 import org.junit.Test;
 
 /**
- * Date: 24.11.17
+ * Класс для тестирования создания поста
  *
  * @author olerom
  */
 public class PostCreationTest extends TestBase {
 
+    /**
+     * Создание поста.
+     * Проверяется соответствие введенного текста поста и полученного.
+     */
     @Test
     public void postCreationTest() {
         final LoginPage sessionHelper = new LoginPage(driver);

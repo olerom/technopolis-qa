@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 
 /**
- * Date: 25.11.17
+ * Обертка для поста в группе
  *
  * @author olerom
  */
@@ -16,13 +16,12 @@ public class PostWrapper {
         this.element = element;
     }
 
+    /**
+     * @return текст, который содержится в этом посте
+     */
     @NotNull
     public String getPostText() {
         return element.getAttribute("innerText");
-    }
-
-    public void click() {
-        element.click();
     }
 
 }

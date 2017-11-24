@@ -13,18 +13,21 @@ public abstract class HelperBase {
     protected final WebDriver driver;
     protected static final int TIME_OUT_IN_SECONDS = 1;
 
-    private boolean acceptNextAlert = true;
-
     public HelperBase(@NotNull final WebDriver driver) {
         this.driver = driver;
         check();
     }
 
+    /**
+     * Проверка каких-нибудь нужных элементов на странице.
+     */
     protected abstract void check();
 
     /**
      * Метод для того, чтобы произвести клик на элемент.
      * Производится скролл, чтобы элемент был в видимости.
+     * Если этого не делать, то будет выкинуто исключение,
+     * так как нельзя достучаться до этого элемента.
      *
      * @param locator элемент
      */
@@ -43,8 +46,8 @@ public abstract class HelperBase {
     /**
      * Метод для того, чтобы вводить значения
      *
-     * @param text название группы
-     * @param locator   элемент
+     * @param text    название группы
+     * @param locator элемент
      */
     protected void type(@NotNull final String text,
                         @NotNull final By locator) {
@@ -64,31 +67,6 @@ public abstract class HelperBase {
             return true;
         } catch (NoSuchElementException e) {
             return false;
-        }
-    }
-
-    protected boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    @NotNull
-    private String closeAlertAndGetItsText() {
-        try {
-            final Alert alert = driver.switchTo().alert();
-            final String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
         }
     }
 }

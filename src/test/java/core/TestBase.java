@@ -11,14 +11,12 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.fail;
 
 /**
- * Date: 10.11.17
+ * Базовый класс для тестов.
  *
  * @author olerom
  */
 
 public class TestBase {
-    @NotNull
-    private final String baseUrl = "https://ok.ru";
 
     @NotNull
     private final StringBuffer verificationErrors = new StringBuffer();
@@ -26,30 +24,31 @@ public class TestBase {
     @NotNull
     protected final WebDriver driver = new ChromeDriver();
 
-    private final int WAIT_TIME_TIMEOUTS = 1;
+    /**
+     * Настрока для каждого теста.
+     * По полсекунды на переход.
+     * Начинаем все тесты с главной страницы портала.
+     */
+    @Before
+    public void setUp() {
+        final int waitMilliseconds = 500;
+        driver.manage().timeouts().implicitlyWait(waitMilliseconds, TimeUnit.MILLISECONDS);
 
-    protected void init() {
-        driver.manage().timeouts().implicitlyWait(WAIT_TIME_TIMEOUTS, TimeUnit.SECONDS);
+        final String baseUrl = "https://ok.ru";
         driver.get(baseUrl + "/");
     }
 
-    public void stop() {
+    /**
+     * Закрываем драйвер после каждого теста.
+     * Проверяем, что все было ок.
+     */
+    @After
+    public void tearDown() {
         driver.quit();
         final String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-    }
-
-
-    @Before
-    public void setUp() throws Exception {
-        init();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        stop();
     }
 
 }
