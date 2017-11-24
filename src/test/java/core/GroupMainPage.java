@@ -4,8 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс-помощник для работы со страницей с группами
@@ -22,6 +26,11 @@ public class GroupMainPage extends HelperBase {
     private static final By GROUP_NAME = By.xpath("(.//*[contains(@class,'mctc_name_tx')])");
     private static final By GROUP_DESCRIPTION = By.xpath("(.//*[contains(@class,'group-info_desc')])");
     private static final By GROUP_NAME_ERROR = By.xpath(".//*[contains(@class,'form_i__error')]//*[contains(@class,'input-e')]");
+    private static final By ALL_GROUPS = By.xpath(".//*[contains(@class, 'ugrid __l')]//*[contains(@data-l,'t,visit')]");
+    private static final By ANOTHER_ACTIONS = By.xpath(".//*[contains(@data-active-class, 'u-menu_a__sub-open')]");
+    private static final By DELETE_GROUP = By.xpath(".//*[contains(@hrefattrs, 'cmd=PopLayer&st.layer.cmd=PopLayerRemoveAltGroup')]");
+
+    private static final String TO_GO_URL = "https://ok.ru/group/";
 
     public GroupMainPage(@NotNull final WebDriver driver) {
         super(driver);
@@ -87,5 +96,32 @@ public class GroupMainPage extends HelperBase {
     public void checkErrorOnGroupName() {
         final String actualName = driver.findElement(GROUP_NAME_ERROR).getText();
         Assert.assertTrue("Нет такой ошибки", actualName.equals("Укажите название"));
+    }
+
+    @NotNull
+    private List<GroupWrapper> getGroupWrappers() {
+        final List<WebElement> elements = driver.findElements(ALL_GROUPS);
+        final List<GroupWrapper> groupWrappers = new ArrayList<>(elements.size());
+
+        elements.forEach((e) -> groupWrappers.add(new GroupWrapper(e)));
+
+        return groupWrappers;
+    }
+
+    public void openGroupById(@NotNull final String groupId) {
+        final List<GroupWrapper> groups = getGroupWrappers();
+
+        for (GroupWrapper group : groups) {
+            if (group.getGroupHref().equals(TO_GO_URL + groupId)) {
+                group.click();
+                break;
+            }
+        }
+
+    }
+
+    public void deleteGroup() {
+        click(ANOTHER_ACTIONS);
+        click(DELETE_GROUP);
     }
 }

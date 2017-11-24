@@ -3,8 +3,6 @@ package core;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
 /**
  * Date: 24.11.17
  *
@@ -13,15 +11,19 @@ import java.util.List;
 public class GroupWrapper {
 
     @NotNull
-    private final List<WebElement> elements;
+    private final WebElement element;
 
-    public GroupWrapper(@NotNull final List<WebElement> elements) {
-        this.elements = elements;
+    public GroupWrapper(@NotNull final WebElement element) {
+        this.element = element;
     }
 
-    public void soutClassesShitty() {
-        for (WebElement element : elements) {
-            System.out.println(element.getAttribute("href"));
-        }
+    @NotNull
+    public String getGroupHref() {
+        return element.getAttribute("href");
     }
+
+    public void click() {
+        element.click();
+    }
+
 }

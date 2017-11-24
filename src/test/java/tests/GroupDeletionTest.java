@@ -3,7 +3,6 @@ package tests;
 import core.*;
 import model.TestBot;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 /**
  * Date: 24.11.17
@@ -21,11 +20,14 @@ public class GroupDeletionTest extends TestBase {
         UserMainPageHelper userMainPageHelper = userMainPageFactory.getUserMainPageHelper(driver);
         userMainPageHelper.clickGroupsOnToolbar();
 
+        GroupMainPage groupHelper = new GroupMainPage(driver);
+        groupHelper.openGroupById("53521811046534");
+        groupHelper.deleteGroup();
 
-        GroupWrapper groupWrapper = new GroupWrapper(
-                driver.findElements(
-                        By.xpath(".//*[contains(@class, 'ugrid __l')]//*[contains(@data-l,'t,visit')]")));
-
-        groupWrapper.soutClassesShitty();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
