@@ -26,12 +26,12 @@ public class TestBase {
 
     /**
      * Настрока для каждого теста.
-     * По полсекунды на переход.
+     * По секунде на переход.
      * Начинаем все тесты с главной страницы портала.
      */
     @Before
     public void setUp() {
-        final int waitMilliseconds = 500;
+        final int waitMilliseconds = 1000;
         driver.manage().timeouts().implicitlyWait(waitMilliseconds, TimeUnit.MILLISECONDS);
 
         final String baseUrl = "https://ok.ru";

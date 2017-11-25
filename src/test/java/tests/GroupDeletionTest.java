@@ -28,9 +28,10 @@ public class GroupDeletionTest extends TestBase {
         userMainPage.clickGroupsOnToolbar();
 
         final GroupMainPage groupHelper = new GroupMainPage(driver);
-        final String groupId = "53521811046534";
+        final String groupId = "53521804034182";
 
         groupHelper.openGroupById(groupId);
         groupHelper.deleteGroup();
+        groupHelper.checkIsGroupDeleted(groupId);
     }
 }

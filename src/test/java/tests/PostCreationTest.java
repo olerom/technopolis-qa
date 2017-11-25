@@ -31,10 +31,9 @@ public class PostCreationTest extends TestBase {
         final GroupMainPage groupHelper = new GroupMainPage(driver);
         groupHelper.openGroupById("53521809211526");
 
-        final String postText = "Lets test thisss!!!";
+        final String postText = "Lets test thisss!!! asdfafds НННzz !!1876 0";
         groupHelper.createPost(postText);
         groupHelper.checkPostText(postText);
-
     }
 
 }

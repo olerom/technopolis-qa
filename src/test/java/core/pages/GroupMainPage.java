@@ -55,6 +55,8 @@ public class GroupMainPage extends HelperBase {
      * @param groupName название группы
      */
     public void typeGroupName(@NotNull final String groupName) {
+        Assert.assertTrue("Не найден элемент для названия группы",
+                isElementPresent(TYPE_NAME_FIELD));
         type(groupName, TYPE_NAME_FIELD);
     }
 
@@ -64,6 +66,8 @@ public class GroupMainPage extends HelperBase {
      * @param groupDescription описание группы
      */
     public void typeGroupDescription(@NotNull final String groupDescription) {
+        Assert.assertTrue("Не найден элемент для описания группы",
+                isElementPresent(TYPE_DESCRIPTION_FIELD));
         type(groupDescription, TYPE_DESCRIPTION_FIELD);
     }
 
@@ -71,7 +75,8 @@ public class GroupMainPage extends HelperBase {
      * Выбор группы с типом "Группа по интересам или для друзей"
      */
     public void clickInterestGroup() {
-        Assert.assertTrue("Нет элемента создания группы", isElementPresent(INTEREST_GROUP));
+        Assert.assertTrue("Нет группы по интересам",
+                isElementPresent(INTEREST_GROUP));
         click(INTEREST_GROUP);
     }
 
@@ -79,6 +84,8 @@ public class GroupMainPage extends HelperBase {
      * Клик для начала создания группы.
      */
     public void clickGroupCreation() {
+        Assert.assertTrue("Не найден элемент для начала создания группы",
+                isElementPresent(GROUP_CREATION));
         click(GROUP_CREATION);
     }
 
@@ -86,38 +93,55 @@ public class GroupMainPage extends HelperBase {
      * Клик для окончания создания группы.
      */
     public void clickCreateGroup() {
-        Assert.assertTrue("Нет элемента создания группы", isElementPresent(CREATE_GROUP));
+        Assert.assertTrue("Нет финальной кнопки для создания группы",
+                isElementPresent(CREATE_GROUP));
         click(CREATE_GROUP);
     }
 
     /**
      * Проверка соответствия названия группы
+     *
      * @param expectedName ожидаемое название группы
      */
     public void checkGroupName(@NotNull final String expectedName) {
+        Assert.assertTrue("Не найден элемент с названием группы",
+                isElementPresent(GROUP_NAME));
+
         final String actualName = driver.findElement(GROUP_NAME).getText();
         Assert.assertTrue("Не соответствует название группы", expectedName.equals(actualName));
     }
 
     /**
      * Проверка соответствия описания группы
+     *
      * @param expectedDescription ожидаемое описание группы
      */
     public void checkGroupDescription(@NotNull final String expectedDescription) {
+        Assert.assertTrue("Не найден элемент с описанием группы",
+                isElementPresent(GROUP_DESCRIPTION));
+
         final String actualName = driver.findElement(GROUP_DESCRIPTION).getText();
-        Assert.assertTrue("Не соответствует описание группы", expectedDescription.equals(actualName));
+        Assert.assertEquals("Не соответствует описание группы",
+                expectedDescription,
+                actualName);
     }
 
     /**
      * Проверка, что появилась ошибка о не введенном названии группы
      */
     public void checkErrorOnGroupName() {
+        Assert.assertTrue("Не найден элемент с ошибкой",
+                isElementPresent(GROUP_NAME_ERROR));
+
         final String actualName = driver.findElement(GROUP_NAME_ERROR).getText();
         Assert.assertTrue("Нет такой ошибки", actualName.equals("Укажите название"));
     }
 
     @NotNull
     private List<GroupWrapper> getGroupWrappers() {
+        Assert.assertTrue("Не найдены группы слева в блоке на странице с группами",
+                isElementPresent(ALL_GROUPS));
+
         final List<WebElement> elements = driver.findElements(ALL_GROUPS);
         final List<GroupWrapper> groupWrappers = new ArrayList<>(elements.size());
 
@@ -127,7 +151,8 @@ public class GroupMainPage extends HelperBase {
     }
 
     /**
-     * Открыть группу по ее id
+     * Открыть группу по ее id, в левом баре будем брать группы
+     *
      * @param groupId id группы
      */
     public void openGroupById(@NotNull final String groupId) {
@@ -146,40 +171,79 @@ public class GroupMainPage extends HelperBase {
      * Удалить группу
      */
     public void deleteGroup() {
+        Assert.assertTrue("Не найден элемент с дополнительными действиями",
+                isElementPresent(ANOTHER_ACTIONS));
         click(ANOTHER_ACTIONS);
+
+        Assert.assertTrue("Не найден элемент с удалением группы",
+                isElementPresent(DELETE_GROUP));
         click(DELETE_GROUP);
+
+        Assert.assertTrue("Не найден элемент с подтверждением удаления группы",
+                isElementPresent(CONFIRM_DELETION));
         click(CONFIRM_DELETION);
     }
 
     /**
+     * Проверка группы на удаление (проеряем левый бар)
+     * @param groupId id группы
+     */
+    public void checkIsGroupDeleted(@NotNull final String groupId) {
+        final List<GroupWrapper> groups = getGroupWrappers();
+
+        boolean isDeleted = true;
+        for (GroupWrapper group : groups) {
+            if (group.getGroupHref().equals(TO_GO_URL + groupId)) {
+                isDeleted = false;
+                break;
+            }
+        }
+
+        Assert.assertTrue("Группа не была удалена",
+                isDeleted);
+    }
+
+    /**
      * Создать пост
+     *
      * @param postText текст поста
      */
     public void createPost(@NotNull final String postText) {
+        Assert.assertTrue("Не найдено поле для создания поста",
+                isElementPresent(START_POST_CREATION));
         click(START_POST_CREATION);
+
+        Assert.assertTrue("Не найден поле для текста поста",
+                isElementPresent(TYPE_POST_TEXT));
         type(postText, TYPE_POST_TEXT);
+
+        Assert.assertTrue("Не найден элемент для публикации поста",
+                isElementPresent(CONFIRM_POST_CREATION));
         click(CONFIRM_POST_CREATION);
     }
 
     @NotNull
     private List<PostWrapper> getPostWrappers() {
+        Assert.assertTrue("Не найдены посты",
+                isElementPresent(ALL_POSTS));
+
         final List<WebElement> elements = driver.findElements(ALL_POSTS);
         final List<PostWrapper> postWrappers = new ArrayList<>(elements.size());
-
         elements.forEach((e) -> postWrappers.add(new PostWrapper(e)));
 
         return postWrappers;
     }
 
     /**
-     * Проверка последнего поста в группе на соответствие содержимого текста
+     * Проверка последнего (самого свежего) поста в группе на соответствие содержимого текста
+     *
      * @param expectedText ожидаемый текст
      */
     public void checkPostText(@NotNull final String expectedText) {
         final List<PostWrapper> posts = getPostWrappers();
 
         Assert.assertEquals("Пост не был создан с соответсвующим текстом",
-                posts.get(0).getPostText(),
-                expectedText);
+                expectedText,
+                posts.get(0).getPostText());
     }
 }
