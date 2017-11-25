@@ -19,7 +19,7 @@ public class GroupDeletionTest extends TestBase {
      * Удаление группы c идентификатором <code>groupId</code>.
      */
     @Test
-    public void deleteGroup() {
+    public void deletionGroupTest() {
         final LoginPage sessionHelper = new LoginPage(driver);
         sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
