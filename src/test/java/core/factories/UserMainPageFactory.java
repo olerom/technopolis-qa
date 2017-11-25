@@ -32,6 +32,8 @@ public class UserMainPageFactory {
 //        Но дизайны будут отличаться только в одном локаторе.
 //        Для нового и старого соответственно.
 //        Поэтому решил сделать таким образом.
+//        21 бот - старый
+//        13 бот - новый
         if (driver.findElements(NEW_DESIGN_LOCATOR).size() != 0) {
             return new UserMainPage(driver, NEW_DESIGN_LOCATOR);
         } else {
