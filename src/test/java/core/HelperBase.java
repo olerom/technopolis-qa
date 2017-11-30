@@ -12,6 +12,7 @@ public abstract class HelperBase {
     @NotNull
     protected final WebDriver driver;
     protected static final int TIME_OUT_IN_SECONDS = 1;
+    protected static final int WAIT_IN_SECONDS = 10;
 
     public HelperBase(@NotNull final WebDriver driver) {
         this.driver = driver;

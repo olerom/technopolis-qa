@@ -21,10 +21,10 @@ public class GroupDeletionTest extends TestBase {
     @Test
     public void deletionGroupTest() {
         final LoginPage sessionHelper = new LoginPage(driver);
-        final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
+        final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot13", "technopolis16"));
 
         GroupMainPage groupMainPage = userMainPage.clickGroupsOnToolbar();
-        final String groupId = "54747772223593";
+        final String groupId = "54747783823465";
 
         groupMainPage = groupMainPage.openGroupById(groupId);
         groupMainPage = groupMainPage.deleteGroup();
