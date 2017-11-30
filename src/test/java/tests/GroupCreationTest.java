@@ -20,26 +20,22 @@ public class GroupCreationTest extends TestBase {
      */
     @Test
     public void groupCreationWithValidValuesTest() throws Exception {
-        LoginPage sessionHelper = new LoginPage(driver);
-        sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
+        final LoginPage sessionHelper = new LoginPage(driver);
+        final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot13", "technopolis16"));
 
-        UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
-        UserMainPage userMainPage = userMainPageFactory.getUserMainPageHelper(driver);
-        userMainPage.clickGroupsOnToolbar();
-
-        GroupMainPage groupHelper = new GroupMainPage(driver);
+        GroupMainPage groupMainPage = userMainPage.clickGroupsOnToolbar();
 
         final String groupName = "Test Group";
         final String groupDescription = "Test Group Description";
 
-        groupHelper.clickGroupCreation();
-        groupHelper.clickInterestGroup();
-        groupHelper.typeGroupName(groupName);
-        groupHelper.typeGroupDescription(groupDescription);
-        groupHelper.clickCreateGroup();
+        groupMainPage = groupMainPage.clickGroupCreation();
+        groupMainPage = groupMainPage.clickInterestGroup();
+        groupMainPage.typeGroupName(groupName);
+        groupMainPage.typeGroupDescription(groupDescription);
+        groupMainPage = groupMainPage.clickCreateGroup();
 
-        groupHelper.checkGroupName(groupName);
-        groupHelper.checkGroupDescription(groupDescription);
+        groupMainPage.checkGroupName(groupName);
+        groupMainPage.checkGroupDescription(groupDescription);
     }
 
     /**
@@ -47,19 +43,15 @@ public class GroupCreationTest extends TestBase {
      */
     @Test
     public void groupCreationWithInvalidValuesTest() {
-        LoginPage sessionHelper = new LoginPage(driver);
-        sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
+        final LoginPage sessionHelper = new LoginPage(driver);
+        final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot13", "technopolis16"));
 
-        UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
-        UserMainPage userMainPage = userMainPageFactory.getUserMainPageHelper(driver);
-        userMainPage.clickGroupsOnToolbar();
+        GroupMainPage groupMainPage = userMainPage.clickGroupsOnToolbar();
 
-        GroupMainPage groupHelper = new GroupMainPage(driver);
+        groupMainPage = groupMainPage.clickGroupCreation();
+        groupMainPage = groupMainPage.clickInterestGroup();
+        groupMainPage = groupMainPage.clickCreateGroup();
 
-        groupHelper.clickGroupCreation();
-        groupHelper.clickInterestGroup();
-        groupHelper.clickCreateGroup();
-
-        groupHelper.checkErrorOnGroupName();
+        groupMainPage.checkErrorOnGroupName();
     }
 }

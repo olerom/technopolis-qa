@@ -22,18 +22,15 @@ public class PostCreationTest extends TestBase {
     @Test
     public void postCreationTest() {
         final LoginPage sessionHelper = new LoginPage(driver);
-        sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
+        final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot13", "technopolis16"));
 
-        final UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
-        final UserMainPage userMainPage = userMainPageFactory.getUserMainPageHelper(driver);
-        userMainPage.clickGroupsOnToolbar();
+        GroupMainPage groupMainPage = userMainPage.clickGroupsOnToolbar();
+        final String groupId = "54742336077929";
+        groupMainPage = groupMainPage.openGroupById(groupId);
 
-        final GroupMainPage groupHelper = new GroupMainPage(driver);
-        groupHelper.openGroupById("53521809211526");
-
-        final String postText = "Lets test thisss!!! asdfafds НННzz !!1876 0";
-        groupHelper.createPost(postText);
-        groupHelper.checkPostText(postText);
+        final String postText = "Post text to be tested";
+        groupMainPage = groupMainPage.createPost(postText);
+        groupMainPage.checkPostText(postText);
     }
 
 }

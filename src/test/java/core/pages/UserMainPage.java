@@ -2,6 +2,7 @@ package core.pages;
 
 import core.HelperBase;
 import org.jetbrains.annotations.NotNull;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,15 +25,19 @@ public class UserMainPage extends HelperBase {
     }
 
     protected void check() {
-//        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-//                .until(ExpectedConditions.visibilityOfElementLocated(groupsOnToolbar));
     }
 
     /**
      * Метод для того, чтобы перейти на страницу с группами.
+     *
+     * @return {@link GroupMainPage} базовая страница с группами
      */
-    public void clickGroupsOnToolbar() {
+    @NotNull
+    public GroupMainPage clickGroupsOnToolbar() {
+        Assert.assertTrue("Не найден элемент со ссылкой на группы",
+                isElementPresent(groupsOnToolbar));
         click(groupsOnToolbar);
+        return new GroupMainPage(driver);
     }
 
 }

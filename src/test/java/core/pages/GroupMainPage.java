@@ -73,29 +73,44 @@ public class GroupMainPage extends HelperBase {
 
     /**
      * Выбор группы с типом "Группа по интересам или для друзей"
+     *
+     * @return {@link GroupMainPage} страница с группами с измененным состоянием
      */
-    public void clickInterestGroup() {
+    @NotNull
+    public GroupMainPage clickInterestGroup() {
         Assert.assertTrue("Нет группы по интересам",
                 isElementPresent(INTEREST_GROUP));
         click(INTEREST_GROUP);
+
+        return this;
     }
 
     /**
      * Клик для начала создания группы.
+     *
+     * @return {@link GroupMainPage} страница с группами с измененным состоянием
      */
-    public void clickGroupCreation() {
+    @NotNull
+    public GroupMainPage clickGroupCreation() {
         Assert.assertTrue("Не найден элемент для начала создания группы",
                 isElementPresent(GROUP_CREATION));
         click(GROUP_CREATION);
+
+        return this;
     }
 
     /**
      * Клик для окончания создания группы.
+     *
+     * @return {@link GroupMainPage} страница с группами с измененным состоянием
      */
-    public void clickCreateGroup() {
+    @NotNull
+    public GroupMainPage clickCreateGroup() {
         Assert.assertTrue("Нет финальной кнопки для создания группы",
                 isElementPresent(CREATE_GROUP));
         click(CREATE_GROUP);
+
+        return this;
     }
 
     /**
@@ -154,8 +169,10 @@ public class GroupMainPage extends HelperBase {
      * Открыть группу по ее id, в левом баре будем брать группы
      *
      * @param groupId id группы
+     * @return {@link GroupMainPage} страница с группами с измененным состоянием
      */
-    public void openGroupById(@NotNull final String groupId) {
+    @NotNull
+    public GroupMainPage openGroupById(@NotNull final String groupId) {
         final List<GroupWrapper> groups = getGroupWrappers();
 
         for (GroupWrapper group : groups) {
@@ -164,13 +181,16 @@ public class GroupMainPage extends HelperBase {
                 break;
             }
         }
-
+        return this;
     }
 
     /**
      * Удалить группу
+     *
+     * @return {@link GroupMainPage} страница с группами с измененным состоянием
      */
-    public void deleteGroup() {
+    @NotNull
+    public GroupMainPage deleteGroup() {
         Assert.assertTrue("Не найден элемент с дополнительными действиями",
                 isElementPresent(ANOTHER_ACTIONS));
         click(ANOTHER_ACTIONS);
@@ -182,10 +202,13 @@ public class GroupMainPage extends HelperBase {
         Assert.assertTrue("Не найден элемент с подтверждением удаления группы",
                 isElementPresent(CONFIRM_DELETION));
         click(CONFIRM_DELETION);
+
+        return this;
     }
 
     /**
      * Проверка группы на удаление (проеряем левый бар)
+     *
      * @param groupId id группы
      */
     public void checkIsGroupDeleted(@NotNull final String groupId) {
@@ -207,8 +230,11 @@ public class GroupMainPage extends HelperBase {
      * Создать пост
      *
      * @param postText текст поста
+     *
+     * @return {@link GroupMainPage} страница с группами с измененным состоянием
      */
-    public void createPost(@NotNull final String postText) {
+    @NotNull
+    public GroupMainPage createPost(@NotNull final String postText) {
         Assert.assertTrue("Не найдено поле для создания поста",
                 isElementPresent(START_POST_CREATION));
         click(START_POST_CREATION);
@@ -220,6 +246,8 @@ public class GroupMainPage extends HelperBase {
         Assert.assertTrue("Не найден элемент для публикации поста",
                 isElementPresent(CONFIRM_POST_CREATION));
         click(CONFIRM_POST_CREATION);
+
+        return this;
     }
 
     @NotNull

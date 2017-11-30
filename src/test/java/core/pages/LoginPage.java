@@ -1,6 +1,7 @@
 package core.pages;
 
 import core.HelperBase;
+import core.factories.UserMainPageFactory;
 import model.TestBot;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
@@ -40,11 +41,14 @@ public class LoginPage extends HelperBase {
      * Метод для логина бота
      *
      * @param testBot бот, за которого осуществляется вход
+     * @return {@link UserMainPage} главная страница пользователья в зависимости от дезайна
      */
-    public void doLogin(@NotNull final TestBot testBot) {
+    @NotNull
+    public UserMainPage doLogin(@NotNull final TestBot testBot) {
         type(testBot.getLogin(), EMAIL_FIELD);
         type(testBot.getPassword(), PASSWORD_FIELD);
         click(LOGIN_BUTTON);
+        return new UserMainPageFactory().getUserMainPageHelper(driver);
     }
 
 

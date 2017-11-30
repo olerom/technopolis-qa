@@ -21,17 +21,13 @@ public class GroupDeletionTest extends TestBase {
     @Test
     public void deletionGroupTest() {
         final LoginPage sessionHelper = new LoginPage(driver);
-        sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
+        final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot21", "technopolis16"));
 
-        final UserMainPageFactory userMainPageFactory = new UserMainPageFactory();
-        final UserMainPage userMainPage = userMainPageFactory.getUserMainPageHelper(driver);
-        userMainPage.clickGroupsOnToolbar();
+        GroupMainPage groupMainPage = userMainPage.clickGroupsOnToolbar();
+        final String groupId = "54747772223593";
 
-        final GroupMainPage groupHelper = new GroupMainPage(driver);
-        final String groupId = "53521804034182";
-
-        groupHelper.openGroupById(groupId);
-        groupHelper.deleteGroup();
-        groupHelper.checkIsGroupDeleted(groupId);
+        groupMainPage = groupMainPage.openGroupById(groupId);
+        groupMainPage = groupMainPage.deleteGroup();
+        groupMainPage.checkIsGroupDeleted(groupId);
     }
 }
