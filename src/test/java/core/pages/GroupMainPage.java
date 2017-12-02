@@ -196,11 +196,11 @@ public class GroupMainPage extends HelperBase {
         click(ANOTHER_ACTIONS);
 
         Assert.assertTrue("Не найден элемент с удалением группы",
-                new WebDriverWait(driver, WAIT_IN_SECONDS).until((e) -> isElementPresent(DELETE_GROUP)));
+                isElementPresentWait(DELETE_GROUP, 10));
         click(DELETE_GROUP);
 
         Assert.assertTrue("Не найден элемент с подтверждением удаления группы",
-                new WebDriverWait(driver, WAIT_IN_SECONDS).until((e) -> isElementPresent(CONFIRM_DELETION)));
+                isElementPresentWait(CONFIRM_DELETION, 10));
         click(CONFIRM_DELETION);
 
         return this;
@@ -239,11 +239,11 @@ public class GroupMainPage extends HelperBase {
         click(START_POST_CREATION);
 
         Assert.assertTrue("Не найдено поле для текста поста",
-                new WebDriverWait(driver, WAIT_IN_SECONDS).until((e) -> isElementPresent(TYPE_POST_TEXT)));
+                isElementPresentWait(TYPE_POST_TEXT, 10));
         type(postText, TYPE_POST_TEXT);
 
         Assert.assertTrue("Не найден элемент для публикации поста",
-                new WebDriverWait(driver, WAIT_IN_SECONDS).until((e) -> isElementPresent(CONFIRM_POST_CREATION)));
+                isElementPresentWait(CONFIRM_POST_CREATION, 10));
         click(CONFIRM_POST_CREATION);
 
         return this;

@@ -2,6 +2,7 @@ package core;
 
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Базовый класс хелпера
@@ -12,7 +13,6 @@ public abstract class HelperBase {
     @NotNull
     protected final WebDriver driver;
     protected static final int TIME_OUT_IN_SECONDS = 1;
-    protected static final int WAIT_IN_SECONDS = 10;
 
     public HelperBase(@NotNull final WebDriver driver) {
         this.driver = driver;
@@ -69,5 +69,17 @@ public abstract class HelperBase {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    /**
+     * Метод для проверки с задержкой присутствия элемента на странице
+     *
+     * @param element элемент
+     * @param seconds задержка секунды
+     * @return true, если элемент присутствует на странице
+     */
+    protected boolean isElementPresentWait(@NotNull final By element,
+                                           final int seconds) {
+        return new WebDriverWait(driver, seconds).until((e) -> isElementPresent(element));
     }
 }
