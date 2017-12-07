@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
- * Date: 07.12.17
+ * Страница с созданием группы
  *
  * @author olerom
  */

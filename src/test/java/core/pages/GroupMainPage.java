@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,10 +98,11 @@ public class GroupMainPage extends HelperBase {
      * @return {@link GroupMainPage} страница с группами с измененным состоянием
      */
     @NotNull
-    public GroupMainPage createPost(@NotNull final String postText) {
+    public void createPost(@NotNull final String postText) {
         Assert.assertTrue("Не найдено поле для создания поста",
-                isElementPresent(START_POST_CREATION));
+                isElementPresentWait(START_POST_CREATION, 10));
         click(START_POST_CREATION);
+
 
         Assert.assertTrue("Не найдено поле для текста поста",
                 isElementPresentWait(TYPE_POST_TEXT, 10));
@@ -107,15 +110,15 @@ public class GroupMainPage extends HelperBase {
 
         Assert.assertTrue("Не найден элемент для публикации поста",
                 isElementPresentWait(CONFIRM_POST_CREATION, 10));
-        click(CONFIRM_POST_CREATION);
 
-        return this;
+        waitUntilClickable(10, CONFIRM_POST_CREATION);
+        click(CONFIRM_POST_CREATION);
     }
 
     @NotNull
     private List<PostWrapper> getPostWrappers() {
         Assert.assertTrue("Не найдены посты",
-                isElementPresent(ALL_POSTS));
+                isElementPresentWait(ALL_POSTS, 10));
 
         final List<WebElement> elements = driver.findElements(ALL_POSTS);
         final List<PostWrapper> postWrappers = new ArrayList<>(elements.size());
@@ -125,15 +128,14 @@ public class GroupMainPage extends HelperBase {
     }
 
     /**
-     * Проверка последнего (самого свежего) поста в группе на соответствие содержимого текста
+     * Получить текст поста по индексу
      *
-     * @param expectedText ожидаемый текст
+     * @param index индекс
+     * @return текст поста
      */
-    public void checkPostText(@NotNull final String expectedText) {
+    @NotNull
+    public String getPostTextByIndex(final int index) {
         final List<PostWrapper> posts = getPostWrappers();
-
-        Assert.assertEquals("Пост не был создан с соответсвующим текстом",
-                expectedText,
-                posts.get(0).getPostText());
+        return posts.get(index).getPostText();
     }
 }

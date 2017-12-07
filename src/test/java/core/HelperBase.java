@@ -2,6 +2,7 @@ package core;
 
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -81,5 +82,15 @@ public abstract class HelperBase {
     protected boolean isElementPresentWait(@NotNull final By element,
                                            final int seconds) {
         return new WebDriverWait(driver, seconds).until((e) -> isElementPresent(element));
+    }
+
+    /**
+     * Ждем, пока элемент не станет кликабельным
+     * @param timeOutInSeconds в секундах ожидание
+     * @param locator локатор
+     */
+    protected void waitUntilClickable(int timeOutInSeconds, By locator) {
+        new WebDriverWait(driver, timeOutInSeconds).
+                until(ExpectedConditions.elementToBeClickable(locator));
     }
 }

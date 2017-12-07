@@ -6,6 +6,8 @@ import core.pages.GroupMainPage;
 import core.pages.LoginPage;
 import core.pages.UserMainPage;
 import model.TestBot;
+import org.jetbrains.annotations.NotNull;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -30,7 +32,22 @@ public class PostCreationTest extends TestBase {
 
         final String postText = "Post text to be tested";
         groupMainPage.createPost(postText);
-        groupMainPage.checkPostText(postText);
+
+        final String actualText = groupMainPage.getPostTextByIndex(0);
+        checkPostText(postText, actualText);
+    }
+
+    /**
+     * Проверка последнего (самого свежего) поста в группе на соответствие содержимого текста
+     *
+     * @param expectedText ожидаемый текст
+     * @param actualText действительный текст
+     */
+    private void checkPostText(@NotNull final String expectedText,
+                               @NotNull final String actualText) {
+        Assert.assertEquals("Пост не был создан с соответсвующим текстом",
+                expectedText,
+                actualText);
     }
 
 }

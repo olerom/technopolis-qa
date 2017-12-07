@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Date: 07.12.17
+ * Дефолтная страница с группами
  *
  * @author olerom
  */
