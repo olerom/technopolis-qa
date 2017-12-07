@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
  * @author olerom
  */
 public class GroupWrapper {
+    private static final String TO_GO_URL = "https://ok.ru/group/";
 
     @NotNull
     private final WebElement element;
@@ -21,8 +22,8 @@ public class GroupWrapper {
      * @return href на группу
      */
     @NotNull
-    public String getGroupHref() {
-        return element.getAttribute("href");
+    public String getGroupId() {
+        return element.getAttribute("href").substring(TO_GO_URL.length());
     }
 
     /**

@@ -2,6 +2,7 @@ package tests;
 
 import core.TestBase;
 import core.factories.UserMainPageFactory;
+import core.pages.GroupDefaultPage;
 import core.pages.GroupMainPage;
 import core.pages.LoginPage;
 import core.pages.UserMainPage;
@@ -23,11 +24,11 @@ public class GroupDeletionTest extends TestBase {
         final LoginPage sessionHelper = new LoginPage(driver);
         final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot13", "technopolis16"));
 
-        GroupMainPage groupMainPage = userMainPage.clickGroupsOnToolbar();
+        GroupDefaultPage groupDefaultPage = userMainPage.clickGroupsOnToolbar();
         final String groupId = "54747783823465";
 
-        groupMainPage = groupMainPage.openGroupById(groupId);
-        groupMainPage = groupMainPage.deleteGroup();
-        groupMainPage.checkIsGroupDeleted(groupId);
+        final GroupMainPage groupMainPage = groupDefaultPage.openGroupById(groupId);
+        groupDefaultPage = groupMainPage.deleteGroup();
+        groupDefaultPage.checkIsGroupDeleted(groupId);
     }
 }

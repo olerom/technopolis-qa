@@ -5,8 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Главная страница пользователя.
@@ -30,14 +28,14 @@ public class UserMainPage extends HelperBase {
     /**
      * Метод для того, чтобы перейти на страницу с группами.
      *
-     * @return {@link GroupMainPage} базовая страница с группами
+     * @return {@link GroupDefaultPage} дефолтная страница с группами
      */
     @NotNull
-    public GroupMainPage clickGroupsOnToolbar() {
+    public GroupDefaultPage clickGroupsOnToolbar() {
         Assert.assertTrue("Не найден элемент со ссылкой на группы",
                 isElementPresent(groupsOnToolbar));
         click(groupsOnToolbar);
-        return new GroupMainPage(driver);
+        return new GroupDefaultPage(driver);
     }
 
 }

@@ -1,7 +1,7 @@
 package tests;
 
 import core.TestBase;
-import core.factories.UserMainPageFactory;
+import core.pages.GroupDefaultPage;
 import core.pages.GroupMainPage;
 import core.pages.LoginPage;
 import core.pages.UserMainPage;
@@ -24,12 +24,12 @@ public class PostCreationTest extends TestBase {
         final LoginPage sessionHelper = new LoginPage(driver);
         final UserMainPage userMainPage = sessionHelper.doLogin(new TestBot("technopolisBot13", "technopolis16"));
 
-        GroupMainPage groupMainPage = userMainPage.clickGroupsOnToolbar();
+        final GroupDefaultPage groupDefaultPage = userMainPage.clickGroupsOnToolbar();
         final String groupId = "54742336077929";
-        groupMainPage = groupMainPage.openGroupById(groupId);
+        final GroupMainPage groupMainPage = groupDefaultPage.openGroupById(groupId);
 
         final String postText = "Post text to be tested";
-        groupMainPage = groupMainPage.createPost(postText);
+        groupMainPage.createPost(postText);
         groupMainPage.checkPostText(postText);
     }
 

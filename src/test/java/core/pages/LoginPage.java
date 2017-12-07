@@ -4,6 +4,7 @@ import core.HelperBase;
 import core.factories.UserMainPageFactory;
 import model.TestBot;
 import org.jetbrains.annotations.NotNull;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,12 +30,14 @@ public class LoginPage extends HelperBase {
 
     @Override
     protected void check() {
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(EMAIL_FIELD));
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(PASSWORD_FIELD));
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+        Assert.assertTrue("Не найдено поле логина",
+                isElementPresentWait(EMAIL_FIELD, 10));
+
+        Assert.assertTrue("Не найдено поле с паролем",
+                isElementPresentWait(PASSWORD_FIELD, 10));
+
+        Assert.assertTrue("Не найдена кнопка для того, чтобы залогиниться",
+                isElementPresentWait(LOGIN_BUTTON, 10));
     }
 
     /**
